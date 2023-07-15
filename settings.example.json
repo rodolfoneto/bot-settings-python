@@ -1,0 +1,8 @@
+{
+    "bot_path": "",
+    "url_base": "",
+    "url_login": "/sanctum/token",
+    "login_token": "",
+    "device_name": "",
+    "time_to_request": 300
+}
