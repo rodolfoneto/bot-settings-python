@@ -28,17 +28,18 @@ def get_settings_by_account(account):
     return settings
 
 def create_new_settings_content(local, web):
-    local['speedUpSettings'] = web['speedUpSettings']
     local['connectionSettings']['otherLoginTime'] = web['connectionSettings']['otherLoginTime']
-    local['gatherSettings'] = web['gatherSettings']
-    local['rallySettings'] = web['rallySettings']
+    local['speedUpSettings']   = web['speedUpSettings']
+    local['gatherSettings']    = web['gatherSettings']
+    local['rallySettings']     = web['rallySettings']
     local['cargoShipSettings'] = web['cargoShipSettings']
-    local['supplySettings'] = web['supplySettings']
-    local['heroSettings'] = web['heroSettings']
+    local['supplySettings']    = web['supplySettings']
+    local['heroSettings']      = web['heroSettings']
     local['heroStageSettings'] = web['heroStageSettings']
-    local['arenaSettings'] = web['arenaSettings']
-    local['buildSettings'] = web['buildSettings']
-    local['eventSettings'] = web['eventSettings']
+    local['arenaSettings']     = web['arenaSettings']
+    local['buildSettings']     = web['buildSettings']
+    local['eventSettings']     = web['eventSettings']
+    local['researchSettings']  = web['researchSettings']
     return local
 
 def write_file(account, local, web):

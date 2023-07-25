@@ -8,7 +8,7 @@ import global_settings as gs
 
 def load_accounts_name():
     items = files_bot.get_accounts_directory()
-    listbox.delete(0,tk.END)
+    listbox.delete(0, tk.END)
     for item in items:
         try:
             response = requests_bot.make_request(item)
