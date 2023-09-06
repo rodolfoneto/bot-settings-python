@@ -40,6 +40,8 @@ def create_new_settings_content(local, web):
     local['buildSettings']     = web['buildSettings']
     local['eventSettings']     = web['eventSettings']
     local['researchSettings']  = web['researchSettings']
+    local['troopSettings']  = web['troopSettings']
+    local['miscSettings']  = web['miscSettings']
     return local
 
 def write_file(account, local, web):
