@@ -1,21 +1,18 @@
 
 import bot_data as BotData
-import requests_bot as RequestBot
 import account as Account
-import time
 import random
 import detail_account
+import global_settings as gs
 
 import tkinter as tk
 from tkinter import ttk
 
-
 my_array = BotData.get_accounts_directory()
-# print(my_array)
-# step_size = 10
+
 accounts = []
 for item in my_array:
-    random_number = random.randint(7200, 9000)
+    random_number = random.randint(gs.get('min_time_to_request'), gs.get('max_time_to_request'))
     acc = Account.Account(item, random_number)
     accounts.append(acc)
 
