@@ -54,6 +54,8 @@ class Account:
 
                 self.last_update = datetime.now()
                 self.exist_in_herobot = True
+            elif response.status_code == 401:
+                login.main()
             elif response.status_code == 404 :
                 # print(f"Req: {self.account_id} | 404")
                 self.exist_in_herobot = False
