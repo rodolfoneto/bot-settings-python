@@ -40,8 +40,6 @@ def create_new_settings_content(local, web):
     local['buildSettings']     = web['buildSettings']
     local['eventSettings']     = web['eventSettings']
     local['researchSettings']  = web['researchSettings']
-    local['troopSettings']  = web['troopSettings']
-    local['miscSettings']  = web['miscSettings']
     return local
 
 def write_file(account, local, web):
@@ -52,7 +50,5 @@ def write_file(account, local, web):
 
 def save_web_settings(account, web_content):
     local = get_settings_by_account(account)
-    # print(web_content, local)
-    # return
     write_file(account, local, web_content)
 # save_web_settings('1625103499', '{}')

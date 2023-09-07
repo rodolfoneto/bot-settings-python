@@ -14,6 +14,7 @@ def load_accounts_name():
             response = requests_bot.make_request(item)
             if response.status_code == 200:
                 json_data = response.json()
+                print(item)
                 files_bot.save_web_settings(item, json_data[item])
             elif response.status_code == 401:
                 login.main()
