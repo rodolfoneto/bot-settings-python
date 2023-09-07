@@ -15,7 +15,7 @@ my_array = BotData.get_accounts_directory()
 # step_size = 10
 accounts = []
 for item in my_array:
-    random_number = random.randint(10, 60)
+    random_number = random.randint(7200, 9000)
     acc = Account.Account(item, random_number)
     accounts.append(acc)
 
@@ -23,22 +23,12 @@ def refresh_window():
     for item in accounts:
         item.execute_request()
     window.after(1000, refresh_window)
-    # flag = True
-    # count = 0
-    # while flag:
-    #     accounts[count].execute_request()
-    #     count = count + 1
-
-    #     if count >= len(accounts):
-    #         count = 0
-    #         time.sleep(1)
 
 window = tk.Tk()
 window.title("Hero Bot")
 window.geometry("800x600")
 
 def double_click(event):
-    # selected_item = listbox.get(listbox.curselection())
     account = accounts[listbox.curselection()[0]]
     da = detail_account.DetailAccount(window, account)
     da.open_window()

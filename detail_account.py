@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 import simplejson
 
 class DetailAccount:
@@ -32,6 +33,9 @@ class DetailAccount:
         # Crie um widget Text
         self.last_request = tk.Text(self.detail_window, wrap=tk.WORD) 
         self.last_request.pack(fill=tk.BOTH, expand=True)
+        scrollbar = ttk.Scrollbar(self.last_request, orient=tk.VERTICAL, command=self.last_request.yview)
+        self.last_request.config(yscrollcommand=scrollbar.set)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
         self.draw_window()
 
@@ -45,10 +49,12 @@ class DetailAccount:
         if self.account.changed :
             if(self.account.last_response_response != None):
                 self.status_last_request.config(text=f"Status Ultimo Request: {self.account.last_response_response.status_code}")
-                asd = simplejson.loads(self.account.last_response_response.text)
-                # print(asd)
                 self.last_request.delete("1.0", tk.END)
-                self.last_request.insert(tk.END, simplejson.dumps(asd, sort_keys=True, indent=4 * ' '))
+                try:
+                    response_json = simplejson.loads(self.account.last_response_response.text)
+                    self.last_request.insert(tk.END, simplejson.dumps(response_json, sort_keys=True, indent=4 * ' '))
+                except Exception:
+                    self.last_request.insert(tk.END, 'ENTRAR EM CONTATO COM O DESENVOLVEDOR')
             self.account.changed = False
         self.detail_window.after(1000, self.draw_window)
         

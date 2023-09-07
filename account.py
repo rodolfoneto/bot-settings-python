@@ -39,7 +39,7 @@ class Account:
             return False
 
     def make_request(self):
-            self.time_to_next_request = 30
+            # self.time_to_next_request = 30
             response = RequestBot.make_request_to_get_by_id(self.account_id)
             self.last_response_response = response
             self.changed = True
