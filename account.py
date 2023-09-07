@@ -19,6 +19,8 @@ class Account:
         self.listbox_index = listbox_index
         self.listbox = listbox
         self.seconds_to_next_request = time_to_next_request
+        self.last_response_response = None
+        self.changed = False
 
     def execute_request(self):
         current_time = time.time()
@@ -30,8 +32,17 @@ class Account:
         # self.listbox.itemconfig(self.listbox_index, conf)
 
         if self.last_request_time == 0 or current_time - self.last_request_time >= self.time_to_next_request:
+            self.make_request()
+            self.last_request_time = current_time
+            return True
+        else:
+            return False
+
+    def make_request(self):
             self.time_to_next_request = 30
             response = RequestBot.make_request_to_get_by_id(self.account_id)
+            self.last_response_response = response
+            self.changed = True
             if response.status_code == 200 :
                 # print(f"Req: {self.account_id} | 200")
                 json_data = response.json()
@@ -53,8 +64,4 @@ class Account:
             elif response.status_code == 401 :
                 print('Erro critico eh necessario logar')
             self.last_status_code = response.status_code
-            self.last_request_time = current_time
             print(self.account_id,self.last_status_code,self.exist_in_herobot,self.last_update)
-            return True
-        else:
-            return False

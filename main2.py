@@ -4,6 +4,7 @@ import requests_bot as RequestBot
 import account as Account
 import time
 import random
+import detail_account
 
 import tkinter as tk
 from tkinter import ttk
@@ -36,11 +37,18 @@ window = tk.Tk()
 window.title("Hero Bot")
 window.geometry("800x600")
 
+def double_click(event):
+    # selected_item = listbox.get(listbox.curselection())
+    account = accounts[listbox.curselection()[0]]
+    da = detail_account.DetailAccount(window, account)
+    da.open_window()
+
 label = tk.Label(window, text="Contas")
 label.pack()
 
 listbox = tk.Listbox(window)
 listbox.pack(fill=tk.BOTH, expand=True)
+listbox.bind("<Double-Button-1>", double_click)
 
 scrollbar = ttk.Scrollbar(listbox, orient=tk.VERTICAL, command=listbox.yview)
 listbox.config(yscrollcommand=scrollbar.set)

@@ -26,5 +26,6 @@ def make_request_to_get_by_id(account):
     url = api_url + "/accounts/" + account
     headers = create_header()
     response = requests.get(url, headers=headers)
+    print(url)
     print('response.status_code', response.status_code)
     return response
