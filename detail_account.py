@@ -17,11 +17,17 @@ class DetailAccount:
         self.igg_account = tk.Label(self.detail_window, text=f"Detalhes do Item: {self.account.account_id}")
         self.igg_account.pack()
 
+        # Label para quanto tempo para o proximo request
         self.seconds_next_request = tk.Label(self.detail_window)
         self.seconds_next_request.pack()
 
+        # Crie um Label para o Status do ultimo Request
         self.status_last_request = tk.Label(self.detail_window, text=f"Status Ultimo Request: NULL")
         self.status_last_request.pack()
+
+        # Crie um botao para fazer um Request avulso
+        self.request_button = tk.Button(self.detail_window, text="Fazer Request", command=self.make_request)
+        self.request_button.pack()
 
         # Crie um widget Text
         self.last_request = tk.Text(self.detail_window, wrap=tk.WORD) 
@@ -30,6 +36,9 @@ class DetailAccount:
         self.draw_window()
 
         self.detail_window.after(1000, self.draw_window)
+    
+    def make_request(self):
+        self.account.make_request()
 
     def draw_window(self):
         self.seconds_next_request.config(text=f"Prox Request: {self.account.seconds_to_next_request}s")
