@@ -45,19 +45,22 @@ class Account:
             self.changed = True
             self.last_update = datetime.now()
             if response.status_code == 200 :
-                # print(f"Req: {self.account_id} | 200")
                 json_data = response.json()
                 Validation.validation(json_data)
                 FileBot.save_web_settings(self.account_id, json_data)
                 
-                # self.listbox.tag_add("green_bg", self.listbox_index)
+                self.listbox.delete(self.listbox_index)
+                self.listbox.insert(self.listbox_index, f"{self.account_id} - Atualizado: {self.last_update}")
                 self.listbox.itemconfig(self.listbox_index, {'bg': 'green'})
+                
                 self.exist_in_herobot = True
             elif response.status_code == 401:
                 login.main()
             elif response.status_code == 404 :
-                # print(f"Req: {self.account_id} | 404")
                 self.exist_in_herobot = False
+
+                self.listbox.delete(self.listbox_index)
+                self.listbox.insert(self.listbox_index, f"{self.account_id} - Nao Cadastrado no Site")
                 self.listbox.itemconfig(self.listbox_index, {'bg': 'red'})
             elif response.status_code == 429 :
                 print('O sistema fez muito request de uma unica vez, fecha esse programa e espera 1 munito ou fala com Rodolfo')
