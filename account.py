@@ -43,6 +43,7 @@ class Account:
             response = RequestBot.make_request_to_get_by_id(self.account_id)
             self.last_response_response = response
             self.changed = True
+            self.last_update = datetime.now()
             if response.status_code == 200 :
                 # print(f"Req: {self.account_id} | 200")
                 json_data = response.json()
@@ -51,8 +52,6 @@ class Account:
                 
                 # self.listbox.tag_add("green_bg", self.listbox_index)
                 self.listbox.itemconfig(self.listbox_index, {'bg': 'green'})
-
-                self.last_update = datetime.now()
                 self.exist_in_herobot = True
             elif response.status_code == 401:
                 login.main()

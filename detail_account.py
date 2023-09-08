@@ -26,6 +26,10 @@ class DetailAccount:
         self.status_last_request = tk.Label(self.detail_window, text=f"Status Ultimo Request: NULL")
         self.status_last_request.pack()
 
+        # Crie um Label para DateTime do ultimo Request
+        self.datetime_last_request = tk.Label(self.detail_window, text=f"Dt Ultimo Request: NULL")
+        self.datetime_last_request.pack()
+
         # Crie um botao para fazer um Request avulso
         self.request_button = tk.Button(self.detail_window, text="Fazer Request", command=self.make_request)
         self.request_button.pack()
@@ -54,9 +58,11 @@ class DetailAccount:
         self.detail_window.after(1000, self.draw_window)
     
     def set_infos(self):
-        self.status_last_request.config(text=f"Status Ultimo Request: {self.account.last_response_response.status_code}")
+        if self.account.last_update != None:
+            self.datetime_last_request.config(text=f"Dt Ultimo Request: {self.account.last_update}")
         self.last_request.delete("1.0", tk.END)
         if self.account.last_response_response != None:
+            self.status_last_request.config(text=f"Status Ultimo Request: {self.account.last_response_response.status_code}")
             try:
                 response_json = simplejson.loads(self.account.last_response_response.text)
                 self.last_request.insert(tk.END, simplejson.dumps(response_json, sort_keys=True, indent=4 * ' '))
