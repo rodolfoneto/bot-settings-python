@@ -38,7 +38,8 @@ class DetailAccount:
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
         self.draw_window()
-
+        self.set_infos()
+        
         self.detail_window.after(1000, self.draw_window)
     
     def make_request(self):
@@ -47,15 +48,17 @@ class DetailAccount:
     def draw_window(self):
         self.seconds_next_request.config(text=f"Prox Request: {self.account.seconds_to_next_request}s")
         if self.account.changed :
-            if(self.account.last_response_response != None):
-                self.status_last_request.config(text=f"Status Ultimo Request: {self.account.last_response_response.status_code}")
-                self.last_request.delete("1.0", tk.END)
-                try:
-                    response_json = simplejson.loads(self.account.last_response_response.text)
-                    self.last_request.insert(tk.END, simplejson.dumps(response_json, sort_keys=True, indent=4 * ' '))
-                except Exception:
-                    self.last_request.insert(tk.END, 'ENTRAR EM CONTATO COM O DESENVOLVEDOR')
+            if self.account.last_response_response != None:
+                self.set_infos()
             self.account.changed = False
         self.detail_window.after(1000, self.draw_window)
-        
-
+    
+    def set_infos(self):
+        self.status_last_request.config(text=f"Status Ultimo Request: {self.account.last_response_response.status_code}")
+        self.last_request.delete("1.0", tk.END)
+        if self.account.last_response_response != None:
+            try:
+                response_json = simplejson.loads(self.account.last_response_response.text)
+                self.last_request.insert(tk.END, simplejson.dumps(response_json, sort_keys=True, indent=4 * ' '))
+            except Exception:
+                self.last_request.insert(tk.END, 'ENTRAR EM CONTATO COM O DESENVOLVEDOR')
