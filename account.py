@@ -44,6 +44,9 @@ class Account:
             self.last_response_response = response
             self.changed = True
             self.last_update = datetime.now()
+            if(response == None):
+                print(f"Erro na request da conta: {self.account_id}")
+                return
             if response.status_code == 200 :
                 json_data = response.json()
                 Validation.validation(json_data)
